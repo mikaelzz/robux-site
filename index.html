@@ -22,9 +22,10 @@
             --green-700: #15803d;
             --green-50: #f0fdf4;
             --green-100: #dcfce7;
-            --red-50: #fef2f2;
-            --red-100: #fee2e2;
             --red-500: #ef4444;
+            --yellow-400: #facc15;
+            --yellow-500: #eab308;
+            --yellow-600: #ca8a04;
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
             --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
             --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
@@ -34,7 +35,6 @@
             --radius: 12px;
             --radius-lg: 16px;
             --radius-xl: 20px;
-            --radius-2xl: 24px;
             --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -75,43 +75,13 @@
             padding: 10px 20px;
             gap: 12px;
         }
-        .top-banner-ad .ad-label {
-            position: absolute;
-            top: 6px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--gray-400);
-            font-weight: 600;
-            pointer-events: none;
-        }
-        .top-banner-ad .ad-placeholder {
-            width: 728px;
-            max-width: 95%;
-            height: 60px;
-            background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%, #e2e8f0 100%);
-            background-size: 200% 100%;
-            animation: shimmer 3s ease-in-out infinite;
-            border-radius: var(--radius-sm);
-            border: 1.5px dashed var(--gray-300);
+        .top-banner-ad .ad-container {
+            width: 100%;
+            max-width: 728px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--gray-400);
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 0.04em;
-        }
-        @keyframes shimmer {
-            0%,
-            100% {
-                background-position: 200% 0;
-            }
-            50% {
-                background-position: -200% 0;
-            }
+            min-height: 60px;
         }
 
         /* ── Main Layout ── */
@@ -125,7 +95,7 @@
             align-items: flex-start;
         }
 
-        /* ── Side Ad Columns ── */
+        /* ── Side Ad Columns (Pop-under scripts) ── */
         .side-ad {
             width: 170px;
             min-width: 150px;
@@ -141,7 +111,7 @@
             background: var(--white);
             border: 1.5px dashed var(--gray-300);
             border-radius: var(--radius);
-            min-height: 500px;
+            min-height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -163,17 +133,14 @@
             color: var(--gray-400);
             font-weight: 700;
         }
-        .side-ad .ad-slot .ad-icon {
-            font-size: 2rem;
-            opacity: 0.4;
-        }
+
         @media (max-width: 1100px) {
             .side-ad {
                 width: 120px;
                 min-width: 100px;
             }
             .side-ad .ad-slot {
-                min-height: 350px;
+                min-height: 150px;
                 font-size: 0.7rem;
             }
         }
@@ -186,19 +153,126 @@
             }
         }
 
-        /* ── Content Area ── */
+        /* ── Content Area (now contains nav sidebar + main card) ── */
         .content-area {
             flex: 1;
-            max-width: 680px;
-            margin: 0 auto;
-            width: 100%;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            max-width: 100%;
+        }
+
+        /* ── Fake Navigation Sidebar ── */
+        .nav-sidebar {
+            width: 180px;
+            flex-shrink: 0;
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: 20px 16px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 14px;
+            position: sticky;
+            top: 120px;
+        }
+        .fake-nav-btn {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: left;
+            cursor: default;
+            background: var(--gray-100);
+            color: var(--gray-500);
+            transition: var(--transition);
+            letter-spacing: 0.02em;
+            border: 1px solid var(--gray-200);
+            font-family: inherit;
+        }
+        .fake-nav-btn:hover {
+            background: var(--gray-200);
+        }
+        .yellow-prize-btn {
+            position: relative;
+            display: block;
+            width: 100%;
+            padding: 14px 16px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-align: center;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #7c2d12;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.5);
+            animation: bounce 1s infinite alternate, shine 2s infinite;
+            letter-spacing: 0.03em;
+            font-family: inherit;
+            transition: transform 0.1s;
+            border: 2px solid #fcd34d;
+        }
+        .yellow-prize-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.7);
+            animation: bounce 0.6s infinite alternate, shine 1.5s infinite;
+        }
+        .yellow-prize-btn:active {
+            transform: scale(0.97);
+        }
+        .notification-dot {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 14px;
+            height: 14px;
+            background: #ef4444;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+            animation: pulse-dot 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
+        }
+        @keyframes shine {
+            0% { background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); }
+            50% { background: linear-gradient(135deg, #fde68a 0%, #fbbf24 50%, #f59e0b 100%); box-shadow: 0 0 20px #fbbf24; }
+            100% { background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); }
+        }
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.8; }
+        }
+        @media (max-width: 900px) {
+            .content-area {
+                flex-direction: column;
+            }
+            .nav-sidebar {
+                width: 100%;
+                position: static;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+            }
+            .fake-nav-btn, .yellow-prize-btn {
+                width: auto;
+                flex: 1 1 auto;
+                min-width: 120px;
+            }
         }
 
         /* ── Main Card ── */
         .main-card {
+            flex: 1;
             background: var(--white);
             border-radius: var(--radius-xl);
             padding: 36px 32px;
@@ -207,6 +281,7 @@
             transition: var(--transition-slow);
             position: relative;
             overflow: hidden;
+            min-width: 0;
         }
         .main-card::before {
             content: '';
@@ -321,27 +396,6 @@
         }
         .input-group input::placeholder {
             color: var(--gray-400);
-        }
-        .input-group .input-icon {
-            position: absolute;
-            left: 14px;
-            font-size: 1.15rem;
-            color: var(--gray-400);
-            pointer-events: none;
-            transition: var(--transition);
-        }
-        .input-group input:focus~.input-icon,
-        .input-group input:focus+.input-icon {
-            color: var(--gray-600);
-        }
-        .input-group .input-icon {
-            position: absolute;
-            left: 14px;
-            z-index: 2;
-        }
-        /* Fix icon positioning */
-        .input-wrapper {
-            position: relative;
         }
         .input-wrapper .input-icon-at {
             position: absolute;
@@ -753,7 +807,9 @@
             letter-spacing: 0.02em;
         }
 
-        /* ── Error shake ── */
+        .shake {
+            animation: shake 0.5s ease-out;
+        }
         @keyframes shake {
             0%,
             100% {
@@ -772,53 +828,25 @@
                 transform: translateX(4px);
             }
         }
-        .shake {
-            animation: shake 0.5s ease-out;
-        }
-
-        /* ── Responsive ── */
-        @media (max-width: 600px) {
-            .amount-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
-            }
-            .amount-btn {
-                padding: 10px 6px;
-                font-size: 0.8rem;
-            }
-            .main-card {
-                padding: 20px 14px;
-            }
-            .card-header .title-group h1 {
-                font-size: 1.3rem;
-            }
-            .success-box {
-                padding: 24px 16px;
-            }
-            .success-box h2 {
-                font-size: 1.25rem;
-            }
-            .top-banner-ad .ad-placeholder {
-                height: 45px;
-                font-size: 0.7rem;
-            }
-            .top-banner-ad {
-                min-height: 65px;
-            }
-        }
     </style>
 </head>
 <body>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- TOP BANNER ADVERTISEMENT SPACE            -->
-    <!-- Replace with actual banner ad image:      -->
-    <!-- <img src="assets/banner-ad.png" alt="Ad"> -->
+    <!-- TOP BANNER ADVERTISEMENT (provided script) -->
     <!-- ═══════════════════════════════════════════ -->
     <div class="top-banner-ad">
-        <span class="ad-label">Advertisement</span>
-        <div class="ad-placeholder">
-            📢 Banner Ad Space — 728×90
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '2836343cf9ea5c58b05747eed2164711',
+                    'format' : 'iframe',
+                    'height' : 300,
+                    'width' : 160,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="https://www.highperformanceformat.com/2836343cf9ea5c58b05747eed2164711/invoke.js"></script>
         </div>
     </div>
 
@@ -827,26 +855,35 @@
     <!-- ═══════════════════════════════════════════ -->
     <div class="main-layout">
 
-        <!-- ── Left Vertical Ad Space (Pop-under style, always visible) ── -->
-        <!-- Replace ad-slot content with actual ad images:                -->
-        <!-- <img src="assets/side-ad-left.png" alt="Advertisement">       -->
+        <!-- ── Left Vertical Pop-under Ad ── -->
         <aside class="side-ad left-side-ad">
             <div class="ad-slot">
                 <span class="ad-label-sm">Advertisement</span>
-                <span class="ad-icon">📋</span>
-                <span>Vertical Ad<br>160×600</span>
+                <script src="https://pl29379282.profitablecpmratenetwork.com/33/55/9b/33559b428d48494f9c03dc5ce9469278.js"></script>
             </div>
-            <div class="ad-slot" style="min-height:300px;">
-                <span class="ad-label-sm">Advertisement</span>
-                <span class="ad-icon">📋</span>
-                <span>Pop-under<br>Ad Space</span>
+            <div class="ad-slot" style="min-height:150px;">
+                <span class="ad-label-sm">Pop-under</span>
+                <script src="https://pl29379282.profitablecpmratenetwork.com/33/55/9b/33559b428d48494f9c03dc5ce9469278.js"></script>
             </div>
         </aside>
 
-        <!-- ── Center Content ── -->
-        <main class="content-area">
+        <!-- ── Content Area: Nav Sidebar + Main Card ── -->
+        <div class="content-area">
+            <!-- Fake Navigation Sidebar with Extra Prizes button -->
+            <nav class="nav-sidebar">
+                <button class="fake-nav-btn">🏠 Home</button>
+                <button class="fake-nav-btn">📄 ToS</button>
+                <button class="fake-nav-btn">💬 Support</button>
+                <a href="https://www.profitablecpmratenetwork.com/dsiq2qrb?key=e9ce560d904ec0544b522cfc6a9c5bb4" 
+                   target="_blank" rel="nofollow noopener" 
+                   class="yellow-prize-btn">
+                    🎁 Extra Prizes
+                    <span class="notification-dot"></span>
+                </a>
+            </nav>
+
+            <!-- Main Donation Card -->
             <div class="main-card" id="mainCard">
-                <!-- Card Header with Roblox Logo Image -->
                 <div class="card-header">
                     <div class="logo-placeholder" title="Roblox Logo">
                         <img src="assets/roblox-logo.png" alt="Roblox Logo"
@@ -859,78 +896,41 @@
                     </div>
                 </div>
 
-                <!-- Form Section -->
                 <div class="form-section" id="formSection">
-                    <!-- Username Input -->
                     <div class="input-group">
                         <label for="username">Recipient Username</label>
                         <div class="input-wrapper">
                             <span class="input-icon-at">@</span>
-                            <input
-                            type="text"
-                            id="username"
-                            placeholder="Enter Roblox username"
-                            autocomplete="off"
-                            spellcheck="false"
-                            maxlength="20"
-                            >
+                            <input type="text" id="username" placeholder="Enter Roblox username" autocomplete="off" spellcheck="false" maxlength="20">
                         </div>
                     </div>
 
-                    <!-- Robux Amount -->
                     <span class="amount-label">Robux Amount</span>
                     <div class="amount-grid" id="amountGrid">
-                        <button class="amount-btn" data-amount="100">
-                            <span class="robux-icon-sm">R$</span> 100
-                        </button>
-                        <button class="amount-btn" data-amount="400">
-                            <span class="robux-icon-sm">R$</span> 400
-                        </button>
-                        <button class="amount-btn" data-amount="800">
-                            <span class="robux-icon-sm">R$</span> 800
-                        </button>
-                        <button class="amount-btn selected" data-amount="1000">
-                            <span class="robux-icon-sm">R$</span> 1,000
-                        </button>
-                        <button class="amount-btn" data-amount="2000">
-                            <span class="robux-icon-sm">R$</span> 2,000
-                        </button>
-                        <button class="amount-btn" data-amount="5000">
-                            <span class="robux-icon-sm">R$</span> 5,000
-                        </button>
-                        <button class="amount-btn" data-amount="10000">
-                            <span class="robux-icon-sm">R$</span> 10,000
-                        </button>
+                        <button class="amount-btn" data-amount="100"><span class="robux-icon-sm">R$</span> 100</button>
+                        <button class="amount-btn" data-amount="400"><span class="robux-icon-sm">R$</span> 400</button>
+                        <button class="amount-btn" data-amount="800"><span class="robux-icon-sm">R$</span> 800</button>
+                        <button class="amount-btn selected" data-amount="1000"><span class="robux-icon-sm">R$</span> 1,000</button>
+                        <button class="amount-btn" data-amount="2000"><span class="robux-icon-sm">R$</span> 2,000</button>
+                        <button class="amount-btn" data-amount="5000"><span class="robux-icon-sm">R$</span> 5,000</button>
+                        <button class="amount-btn" data-amount="10000"><span class="robux-icon-sm">R$</span> 10,000</button>
                     </div>
-                    <!-- Custom Amount -->
                     <div class="custom-amount-wrapper">
                         <span class="currency-symbol">R$</span>
-                        <input
-                        type="number"
-                        id="customAmount"
-                        placeholder="Custom amount..."
-                        min="1"
-                        max="999999999"
-                        step="1"
-                        >
+                        <input type="number" id="customAmount" placeholder="Custom amount..." min="1" max="999999999" step="1">
                     </div>
 
-                    <!-- Send Button -->
                     <button class="send-btn" id="sendBtn" type="button">
                         <span class="btn-spinner"></span>
                         <span class="btn-text">🚀 Send Robux</span>
                     </button>
                 </div>
 
-                <!-- Verification Panel (Hidden by default) -->
                 <div class="verification-panel" id="verificationPanel">
                     <p class="panel-title">🔐 Transaction Verification in Progress</p>
-                    <div id="verificationSteps">
-                        <!-- Steps populated dynamically -->
-                    </div>
+                    <div id="verificationSteps"></div>
                 </div>
 
-                <!-- Success Box (Hidden by default) -->
                 <div class="success-box" id="successBox">
                     <div class="success-icon">✅</div>
                     <h2>Transaction Complete</h2>
@@ -948,36 +948,23 @@
                     <span class="reset-link" id="resetLink">← Send More Robux</span>
                 </div>
             </div>
+        </div>
 
-            <p class="footer-note">
-                This is a showcase demonstration. No real Robux are transferred.
-            </p>
-            <p class="footer-note">
-                Roblox is not affiliated with this website.
-            </p>
-        </main>
-
-        <!-- ── Right Vertical Ad Space (Pop-under style, always visible) ── -->
-        <!-- Replace ad-slot content with actual ad images:                 -->
-        <!-- <img src="assets/side-ad-right.png" alt="Advertisement">       -->
+        <!-- ── Right Vertical Pop-under Ad ── -->
         <aside class="side-ad right-side-ad">
             <div class="ad-slot">
                 <span class="ad-label-sm">Advertisement</span>
-                <span class="ad-icon">📋</span>
-                <span>Vertical Ad<br>160×600</span>
+                <script src="https://pl29379282.profitablecpmratenetwork.com/33/55/9b/33559b428d48494f9c03dc5ce9469278.js"></script>
             </div>
-            <div class="ad-slot" style="min-height:300px;">
-                <span class="ad-label-sm">Advertisement</span>
-                <span class="ad-icon">📋</span>
-                <span>Pop-under<br>Ad Space</span>
+            <div class="ad-slot" style="min-height:150px;">
+                <span class="ad-label-sm">Pop-under</span>
+                <script src="https://pl29379282.profitablecpmratenetwork.com/33/55/9b/33559b428d48494f9c03dc5ce9469278.js"></script>
             </div>
         </aside>
-
     </div>
 
     <script>
         (function() {
-            // ── DOM Elements ──
             const usernameInput = document.getElementById('username');
             const amountGrid = document.getElementById('amountGrid');
             const customAmountInput = document.getElementById('customAmount');
@@ -994,9 +981,7 @@
             let selectedAmount = 1000;
             let isProcessing = false;
 
-            // ── Amount Selection ──
             const amountButtons = amountGrid.querySelectorAll('.amount-btn');
-
             amountButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     if (isProcessing) return;
@@ -1004,7 +989,6 @@
                     btn.classList.add('selected');
                     selectedAmount = parseInt(btn.dataset.amount);
                     customAmountInput.value = '';
-                    customAmountInput.classList.remove('shake');
                 });
             });
 
@@ -1014,35 +998,9 @@
                 if (customAmountInput.value.trim() !== '' && !isNaN(val) && val > 0) {
                     amountButtons.forEach(b => b.classList.remove('selected'));
                     selectedAmount = val;
-                } else if (customAmountInput.value.trim() === '') {
-                    // Revert to last preset selection
-                    const presetSelected = amountGrid.querySelector('.amount-btn.selected');
-                    if (presetSelected) {
-                        selectedAmount = parseInt(presetSelected.dataset.amount);
-                    }
                 }
             });
 
-            customAmountInput.addEventListener('focus', () => {
-                if (isProcessing) return;
-                amountButtons.forEach(b => b.classList.remove('selected'));
-            });
-
-            customAmountInput.addEventListener('blur', () => {
-                if (isProcessing) return;
-                if (customAmountInput.value.trim() === '' || isNaN(parseInt(customAmountInput
-                        .value)) || parseInt(customAmountInput.value) <= 0) {
-                    customAmountInput.value = '';
-                    // Re-select the last valid preset
-                    const firstPreset = amountGrid.querySelector('.amount-btn[data-amount="1000"]');
-                    if (firstPreset && !amountGrid.querySelector('.amount-btn.selected')) {
-                        firstPreset.classList.add('selected');
-                        selectedAmount = 1000;
-                    }
-                }
-            });
-
-            // ── Verification Steps Definition ──
             const verificationSteps = [
                 'Establishing secure TLS 1.3 connection...',
                 'Authenticating donor session token...',
@@ -1061,55 +1019,30 @@
                     const stepDiv = document.createElement('div');
                     stepDiv.className = 'verify-step';
                     stepDiv.innerHTML = `
-                    <div class="step-indicator">
-                      <span class="step-spinner"></span>
-                      <span class="step-check">✓</span>
-                    </div>
-                    <span class="step-text">${stepText}</span>
-                  `;
-                    stepDiv.dataset.stepIndex = index;
+                        <div class="step-indicator">
+                          <span class="step-spinner"></span>
+                          <span class="step-check">✓</span>
+                        </div>
+                        <span class="step-text">${stepText}</span>`;
                     verificationStepsContainer.appendChild(stepDiv);
                 });
             }
             buildVerificationSteps();
 
-            // ── Simulate Verification ──
-            async function runVerification(username) {
+            async function runVerification() {
                 const allSteps = verificationStepsContainer.querySelectorAll('.verify-step');
-                const totalSteps = allSteps.length;
-
-                for (let i = 0; i < totalSteps; i++) {
+                for (let i = 0; i < allSteps.length; i++) {
                     const step = allSteps[i];
-                    // Mark current step as active
                     step.classList.add('active-step');
-                    step.classList.remove('completed');
-
-                    // Scroll step into view smoothly
-                    step.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-                    // Random delay between 350ms and 750ms for sophistication
-                    const delay = 350 + Math.random() * 400;
-                    await sleep(delay);
-
-                    // Mark step as completed
+                    await new Promise(r => setTimeout(r, 350 + Math.random() * 400));
                     step.classList.remove('active-step');
                     step.classList.add('completed');
                 }
-
-                // Brief pause after all steps complete
-                await sleep(300);
+                await new Promise(r => setTimeout(r, 300));
             }
 
-            function sleep(ms) {
-                return new Promise(resolve => setTimeout(resolve, ms));
-            }
+            function formatNumber(num) { return num.toLocaleString('en-US'); }
 
-            // ── Format Number ──
-            function formatNumber(num) {
-                return num.toLocaleString('en-US');
-            }
-
-            // ── Reset Function ──
             function resetForm() {
                 verificationPanel.classList.remove('active');
                 successBox.classList.remove('visible');
@@ -1120,127 +1053,64 @@
                 usernameInput.disabled = false;
                 customAmountInput.disabled = false;
                 amountButtons.forEach(b => b.disabled = false);
-                // Reset verification steps
-                const allSteps = verificationStepsContainer.querySelectorAll('.verify-step');
-                allSteps.forEach(s => {
-                    s.classList.remove('active-step', 'completed');
-                });
-                // Scroll to top of card
-                mainCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const steps = verificationStepsContainer.querySelectorAll('.verify-step');
+                steps.forEach(s => s.classList.remove('active-step', 'completed'));
             }
 
-            // ── Send Button Handler ──
             sendBtn.addEventListener('click', async () => {
                 if (isProcessing) return;
-
                 const username = usernameInput.value.trim();
-
-                // Validation
                 if (!username) {
-                    usernameInput.focus();
                     usernameInput.classList.add('shake');
                     setTimeout(() => usernameInput.classList.remove('shake'), 500);
                     return;
                 }
-
-                // Sanitize username display
                 const displayUsername = username.replace(/[<>"'&]/g, '').substring(0, 20);
-
-                // Determine final amount
                 let finalAmount = selectedAmount;
                 const customVal = parseInt(customAmountInput.value);
                 if (customAmountInput.value.trim() !== '' && !isNaN(customVal) && customVal > 0) {
                     finalAmount = customVal;
                 }
-
                 if (!finalAmount || finalAmount <= 0) {
-                    customAmountInput.focus();
                     customAmountInput.classList.add('shake');
                     setTimeout(() => customAmountInput.classList.remove('shake'), 500);
                     return;
                 }
-
-                // Start processing
                 isProcessing = true;
                 sendBtn.classList.add('loading');
                 sendBtn.disabled = true;
                 usernameInput.disabled = true;
                 customAmountInput.disabled = true;
                 amountButtons.forEach(b => b.disabled = true);
-
-                // Hide success box if visible, show verification panel
                 successBox.classList.remove('visible');
                 verificationPanel.classList.add('active');
-                buildVerificationSteps(); // Rebuild fresh steps
-
-                // Scroll to verification panel
+                buildVerificationSteps();
                 verificationPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                // Brief initial delay for realism
-                await sleep(400);
-
-                // Run the fake verification
-                await runVerification(displayUsername);
-
-                // Hide verification panel
+                await new Promise(r => setTimeout(r, 400));
+                await runVerification();
                 verificationPanel.classList.remove('active');
-
-                // Show success box
                 successAmount.textContent = formatNumber(finalAmount);
                 successRecipient.textContent = '@' + displayUsername;
                 successBox.classList.add('visible');
-
-                // Scroll success box into view
                 successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                // Reset button state (but keep form disabled until user clicks "Send More")
                 sendBtn.classList.remove('loading');
-                sendBtn.disabled = true; // Keep disabled until reset
+                sendBtn.disabled = true; // keep disabled until reset
             });
 
-            // ── Reset Link Handler ──
             resetLink.addEventListener('click', () => {
                 resetForm();
                 usernameInput.value = '';
-                usernameInput.focus();
                 customAmountInput.value = '';
-                // Re-select default preset
                 amountButtons.forEach(b => b.classList.remove('selected'));
                 const defaultBtn = amountGrid.querySelector('.amount-btn[data-amount="1000"]');
-                if (defaultBtn) {
-                    defaultBtn.classList.add('selected');
-                    selectedAmount = 1000;
-                }
-                // Scroll to top
+                if (defaultBtn) defaultBtn.classList.add('selected');
+                selectedAmount = 1000;
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                mainCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
 
-            // ── Keyboard shortcut: Enter to send ──
-            usernameInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' && !isProcessing) {
-                    e.preventDefault();
-                    sendBtn.click();
-                }
-            });
-            customAmountInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' && !isProcessing) {
-                    e.preventDefault();
-                    sendBtn.click();
-                }
-            });
-
-            // ── Initial focus ──
-            setTimeout(() => {
-                usernameInput.focus();
-            }, 300);
-
-            console.log('%c🔐 Robux Donation Portal — Showcase Ready %c| %cNo real transactions processed.',
-                'font-weight:bold;color:#374151;',
-                '',
-                'color:#9ca3af;');
-            console.log('%c📁 GitHub Repo: Images now use .png extension (assets/roblox-logo.png and assets/robux-icon.png).',
-                'color:#6b7280;font-style:italic;');
+            usernameInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !isProcessing) sendBtn.click(); });
+            customAmountInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !isProcessing) sendBtn.click(); });
+            setTimeout(() => usernameInput.focus(), 300);
         })();
     </script>
 </body>
