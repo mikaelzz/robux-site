@@ -58,22 +58,21 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ── Top Banner Ad Space ── */
+        /* ── Top Banner Ad Space (728x90) ── */
         .top-banner-ad {
             width: 100%;
-            background: var(--gray-200);
-            border-bottom: 1px solid var(--gray-300);
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 90px;
+            min-height: 100px;
             position: sticky;
             top: 0;
             z-index: 100;
             backdrop-filter: blur(8px);
-            background: rgba(229, 231, 235, 0.92);
-            padding: 10px 20px;
-            gap: 12px;
+            background: rgba(255,255,255,0.95);
+            padding: 5px 10px;
         }
         .top-banner-ad .ad-container {
             width: 100%;
@@ -81,7 +80,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 60px;
+            min-height: 90px;
         }
 
         /* ── Main Layout ── */
@@ -95,10 +94,10 @@
             align-items: flex-start;
         }
 
-        /* ── Side Ad Columns (Pop-under scripts) ── */
+        /* ── Side Ad Columns (160x300 banners) ── */
         .side-ad {
             width: 170px;
-            min-width: 150px;
+            min-width: 160px;
             flex-shrink: 0;
             position: sticky;
             top: 120px;
@@ -109,22 +108,18 @@
         }
         .side-ad .ad-slot {
             background: var(--white);
-            border: 1.5px dashed var(--gray-300);
+            border: 1px solid var(--gray-200);
             border-radius: var(--radius);
-            min-height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            gap: 8px;
-            color: var(--gray-400);
-            font-size: 0.78rem;
-            font-weight: 500;
-            letter-spacing: 0.03em;
-            text-align: center;
-            padding: 20px 10px;
-            position: relative;
-            background: linear-gradient(180deg, #fafbfc 0%, #f0f2f5 50%, #fafbfc 100%);
+            gap: 4px;
+            padding: 10px;
+            box-shadow: var(--shadow-sm);
+            min-height: 300px;
+            background: #fafafa;
+            overflow: hidden;
         }
         .side-ad .ad-slot .ad-label-sm {
             font-size: 0.6rem;
@@ -132,16 +127,13 @@
             letter-spacing: 0.1em;
             color: var(--gray-400);
             font-weight: 700;
+            margin-bottom: 4px;
         }
 
         @media (max-width: 1100px) {
             .side-ad {
-                width: 120px;
-                min-width: 100px;
-            }
-            .side-ad .ad-slot {
-                min-height: 150px;
-                font-size: 0.7rem;
+                width: 140px;
+                min-width: 140px;
             }
         }
         @media (max-width: 860px) {
@@ -153,7 +145,7 @@
             }
         }
 
-        /* ── Content Area (now contains nav sidebar + main card) ── */
+        /* ── Content Area (sidebar + main card) ── */
         .content-area {
             flex: 1;
             display: flex;
@@ -177,6 +169,7 @@
             position: sticky;
             top: 120px;
         }
+        /* All sidebar buttons now link to the smartlink */
         .fake-nav-btn {
             display: block;
             width: 100%;
@@ -186,16 +179,18 @@
             font-size: 0.9rem;
             font-weight: 500;
             text-align: left;
-            cursor: default;
             background: var(--gray-100);
             color: var(--gray-500);
+            text-decoration: none;
             transition: var(--transition);
             letter-spacing: 0.02em;
             border: 1px solid var(--gray-200);
             font-family: inherit;
+            cursor: pointer;
         }
         .fake-nav-btn:hover {
             background: var(--gray-200);
+            color: var(--gray-600);
         }
         .yellow-prize-btn {
             position: relative;
@@ -251,6 +246,7 @@
             0%, 100% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.3); opacity: 0.8; }
         }
+
         @media (max-width: 900px) {
             .content-area {
                 flex-direction: column;
@@ -833,20 +829,20 @@
 <body>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- TOP BANNER ADVERTISEMENT (provided script) -->
+    <!-- TOP BANNER - 728x90 (new script)         -->
     <!-- ═══════════════════════════════════════════ -->
     <div class="top-banner-ad">
         <div class="ad-container">
             <script type="text/javascript">
                 atOptions = {
-                    'key' : '2836343cf9ea5c58b05747eed2164711',
+                    'key' : '78c64ed0240f2f56392c71f9d036e5ac',
                     'format' : 'iframe',
-                    'height' : 300,
-                    'width' : 160,
+                    'height' : 90,
+                    'width' : 728,
                     'params' : {}
                 };
             </script>
-            <script type="text/javascript" src="https://www.highperformanceformat.com/2836343cf9ea5c58b05747eed2164711/invoke.js"></script>
+            <script type="text/javascript" src="https://www.highperformanceformat.com/78c64ed0240f2f56392c71f9d036e5ac/invoke.js"></script>
         </div>
     </div>
 
@@ -855,28 +851,48 @@
     <!-- ═══════════════════════════════════════════ -->
     <div class="main-layout">
 
-        <!-- ── Left Vertical Pop-under Ad ── -->
+        <!-- ── Left Side Ad (160x300 banner, originally top) ── -->
         <aside class="side-ad left-side-ad">
             <div class="ad-slot">
                 <span class="ad-label-sm">Advertisement</span>
-                <script src="https://pl29379282.profitablecpmratenetwork.com/33/55/9b/33559b428d48494f9c03dc5ce9469278.js"></script>
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '2836343cf9ea5c58b05747eed2164711',
+                        'format' : 'iframe',
+                        'height' : 300,
+                        'width' : 160,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/2836343cf9ea5c58b05747eed2164711/invoke.js"></script>
             </div>
             <div class="ad-slot" style="min-height:150px;">
-                <span class="ad-label-sm">Pop-under</span>
-                <script src="https://pl29379282.profitablecpmratenetwork.com/33/55/9b/33559b428d48494f9c03dc5ce9469278.js"></script>
+                <span class="ad-label-sm">Advertisement</span>
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '2836343cf9ea5c58b05747eed2164711',
+                        'format' : 'iframe',
+                        'height' : 300,
+                        'width' : 160,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/2836343cf9ea5c58b05747eed2164711/invoke.js"></script>
             </div>
         </aside>
 
         <!-- ── Content Area: Nav Sidebar + Main Card ── -->
         <div class="content-area">
-            <!-- Fake Navigation Sidebar with Extra Prizes button -->
+            <!-- Fake Navigation Sidebar (all buttons link to smartlink) -->
             <nav class="nav-sidebar">
-                <button class="fake-nav-btn">🏠 Home</button>
-                <button class="fake-nav-btn">📄 ToS</button>
-                <button class="fake-nav-btn">💬 Support</button>
                 <a href="https://www.profitablecpmratenetwork.com/dsiq2qrb?key=e9ce560d904ec0544b522cfc6a9c5bb4" 
-                   target="_blank" rel="nofollow noopener" 
-                   class="yellow-prize-btn">
+                   target="_blank" rel="nofollow noopener" class="fake-nav-btn">🏠 Home</a>
+                <a href="https://www.profitablecpmratenetwork.com/dsiq2qrb?key=e9ce560d904ec0544b522cfc6a9c5bb4" 
+                   target="_blank" rel="nofollow noopener" class="fake-nav-btn">📄 ToS</a>
+                <a href="https://www.profitablecpmratenetwork.com/dsiq2qrb?key=e9ce560d904ec0544b522cfc6a9c5bb4" 
+                   target="_blank" rel="nofollow noopener" class="fake-nav-btn">💬 Support</a>
+                <a href="https://www.profitablecpmratenetwork.com/dsiq2qrb?key=e9ce560d904ec0544b522cfc6a9c5bb4" 
+                   target="_blank" rel="nofollow noopener" class="yellow-prize-btn">
                     🎁 Extra Prizes
                     <span class="notification-dot"></span>
                 </a>
@@ -950,15 +966,33 @@
             </div>
         </div>
 
-        <!-- ── Right Vertical Pop-under Ad ── -->
+        <!-- ── Right Side Ad (160x300 banner, originally top) ── -->
         <aside class="side-ad right-side-ad">
             <div class="ad-slot">
                 <span class="ad-label-sm">Advertisement</span>
-                <script src="https://pl29379282.profitablecpmratenetwork.com/33/55/9b/33559b428d48494f9c03dc5ce9469278.js"></script>
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '2836343cf9ea5c58b05747eed2164711',
+                        'format' : 'iframe',
+                        'height' : 300,
+                        'width' : 160,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/2836343cf9ea5c58b05747eed2164711/invoke.js"></script>
             </div>
             <div class="ad-slot" style="min-height:150px;">
-                <span class="ad-label-sm">Pop-under</span>
-                <script src="https://pl29379282.profitablecpmratenetwork.com/33/55/9b/33559b428d48494f9c03dc5ce9469278.js"></script>
+                <span class="ad-label-sm">Advertisement</span>
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '2836343cf9ea5c58b05747eed2164711',
+                        'format' : 'iframe',
+                        'height' : 300,
+                        'width' : 160,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/2836343cf9ea5c58b05747eed2164711/invoke.js"></script>
             </div>
         </aside>
     </div>
@@ -1094,7 +1128,7 @@
                 successBox.classList.add('visible');
                 successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 sendBtn.classList.remove('loading');
-                sendBtn.disabled = true; // keep disabled until reset
+                sendBtn.disabled = true;
             });
 
             resetLink.addEventListener('click', () => {
